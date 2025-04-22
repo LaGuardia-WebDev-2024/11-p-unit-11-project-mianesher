@@ -1,18 +1,35 @@
-var snowX = [100, 120, 160, 200];
-var snowY = [50, 70, 40, 20];
+var snowX = [100, 200, 300];
+var snowY = [50, 60, 70];
+var snowSize = [20, 25, 30];
 
-setup = function() {
-   size(600, 450); 
-   background(164, 212, 255);
-  
-   textSize(40);
-   for(var i = 0; i < snowX.length; i++){
-     text("❆", snowX[i], snowY[i]);
-   }
-   
-   fill(255,255,255);
-   rect(-10, 300, 610, 150);
+var img; 
 
+void setup() {
+  size(600, 400);
+  img = loadImage("snowman.jpg"); 
+
+  background(200, 230, 255);
+  image(img, 400, 200, 150, 150); 
+
+  for (var i = 0; i < snowX.length; i++) {
+    drawSnowflake(snowX[i], snowY[i], snowSize[i]);
+  }
 }
 
+void drawSnowflake(int x, int y, int size) {
+  textSize(size);
+  text("❆", x, y);
+}
 
+void mousePressed() {
+  snowX.push(mouseX);
+  snowY.push(mouseY);
+  snowSize.push(int(random(20, 30)));
+
+  background(200, 230, 255);
+  image(img, 400, 200, 150, 150); 
+
+  for (var i = 0; i < snowX.length; i++) {
+    drawSnowflake(snowX[i], snowY[i], snowSize[i]);
+  }
+}
